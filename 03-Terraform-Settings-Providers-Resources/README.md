@@ -10,14 +10,14 @@
 - Understand about [Terraform Settings Block](https://www.terraform.io/docs/language/settings/index.html) and create it
 ```t
 terraform {
-  required_version = "~> 0.14" # which means any version equal & above 0.14 like 0.15, 0.16 etc and < 1.xx
   required_providers {
     aws = {
-      source  = "hashicorp/aws"
-      version = "~> 3.0"
+      version = ">= 2.7.0"    # which means any version equal & above 2.7.0 like 2.7.1, 2.7.2 etc and < 3.xx
+      source = "hashicorp/aws"
     }
   }
 }
+
 ```
 
 ## Step-03: In c1-versions.tf - Create Terraform Providers Block 
