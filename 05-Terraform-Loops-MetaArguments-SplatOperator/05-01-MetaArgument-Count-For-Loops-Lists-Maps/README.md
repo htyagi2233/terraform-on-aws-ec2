@@ -118,6 +118,30 @@ Observations:
 1) Two EC2 Instances (Count = 2) of a Resource myec2vm will be created
 2) Count.index will start from 0 and end with 1 for VM Names
 3) Review outputs in detail (for loop with list, maps, maps advanced, splat legacy and splat latest)
+
+
+# Output after Terraform Apply
+Outputs:
+
+for_output_list = [
+  "ec2-3-110-158-4.ap-south-1.compute.amazonaws.com",
+  "ec2-15-206-165-152.ap-south-1.compute.amazonaws.com",
+]
+for_output_map1 = {
+  "i-0f26c19373935ee95" = "ec2-15-206-165-152.ap-south-1.compute.amazonaws.com"
+  "i-0f911a2e158bffcc1" = "ec2-3-110-158-4.ap-south-1.compute.amazonaws.com"
+}
+for_output_map2 = {
+  "0" = "ec2-3-110-158-4.ap-south-1.compute.amazonaws.com"
+  "1" = "ec2-15-206-165-152.ap-south-1.compute.amazonaws.com"
+}
+latest_splat_instance_publicdns = [
+  "ec2-3-110-158-4.ap-south-1.compute.amazonaws.com",
+  "ec2-15-206-165-152.ap-south-1.compute.amazonaws.com",
+]
+legacy_splat_instance_publicdns = [
+  "ec2-3-110-158-4.ap-south-1.compute.amazonaws.com",
+  "ec2-15-206-165-152.ap-south-1.compute.amazonaws.com",
 ```
 
 ## Step-08: Terraform Comments
