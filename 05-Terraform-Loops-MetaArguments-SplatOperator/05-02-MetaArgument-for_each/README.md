@@ -118,6 +118,7 @@ rm -rf terraform.tfstate*
 ```
 
 ## References
+- [Data Source: aws_availability_zones] (https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones)
 - [Terraform Functions](https://www.terraform.io/docs/language/functions/tolist.html)
 - [Data Source: aws_availability_zones](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones)
 - [for_each Meta-Argument](https://www.terraform.io/docs/language/meta-arguments/for_each.html)
