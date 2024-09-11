@@ -19,9 +19,9 @@
 - if we have 6 availability zone in 1 resgion and सभी region में हम 1-1 instance create करना चाहते है तो हम for loop का use कर सकते है 
 
 ### Step-03-01: Availability Zones Datasource
+- [Data Source: aws_availability_zones](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones)
 ```t
 # Availability Zones Datasource
-- [Data Source: aws_availability_zones](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones)
 data "aws_availability_zones" "my_azones" {
   filter {
     name   = "opt-in-status"
