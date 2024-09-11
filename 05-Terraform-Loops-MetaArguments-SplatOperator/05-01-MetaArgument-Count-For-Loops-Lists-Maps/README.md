@@ -22,7 +22,7 @@
 
 ## Step-03: c2-variables.tf - Lists and Maps
 ```t
-# AWS EC2 Instance Type - List
+# AWS EC2 Instance Type - List (अगर हमें list में value देनी है और इस variable value को pick करेंगे तब हमें 1 और 2 देनी होगी यानि कौन सी value pick करनी है )
 variable "instance_type_list" {
   description = "EC2 Instnace Type"
   type = list(string)
@@ -30,7 +30,7 @@ variable "instance_type_list" {
 }
 
 
-# AWS EC2 Instance Type - Map
+# AWS EC2 Instance Type - Map (map में हम key-pair में value define करते है और variable value को pick करने के लिए हम only key को लेते है)
 variable "instance_type_map" {
   description = "EC2 Instnace Type"
   type = map(string)
@@ -47,16 +47,16 @@ variable "instance_type_map" {
 
 ## Step-05: c5-ec2instance.tf
 ```t
-# How to reference List values ?
+# How to reference List values ? (अगर हमें list में value दी है और इस variable value को pick करेंगे तब हमें 1 और 2 देनी होगी यानि कौन सी value pick करनी है )
 instance_type = var.instance_type_list[1]
 
-# How to reference Map values ?
+# How to reference Map values ? (map में हम key-pair में value define करते है और variable value को pick करने के लिए हम only key को लेते है)
 instance_type = var.instance_type_map["prod"]
 
-# Meta-Argument Count
+# Meta-Argument Count  (इसमें हम 2 resource create करने के लिए define कर रहे है ) 
 count = 2
 
-# count.index
+# count.index  (और दोनों resources में जब तब add hoga तब count-demo-1 और count-demo-2 यानि increase count में add hoga )
   tags = {
     "Name" = "Count-Demo-${count.index}"
   }
@@ -68,31 +68,33 @@ count = 2
 - for loop with Map Advanced
 ```t
 
-# Output - For Loop with List
+# Output - For Loop with List  (for loop के through aws_instance.myec2vm resources से created every resource का public_dns output ने print होगा ) 
 output "for_output_list" {
   description = "For Loop with List"
   value = [for instance in aws_instance.myec2vm: instance.public_dns ]
 }
 
-# Output - For Loop with Map
+# Output - For Loop with Map (map में हमने aws_instance.myec2vm के through created every resource (instance) की instance.id और then उनका instance.public_dns output में print hoga ) 
 output "for_output_map1" {
   description = "For Loop with Map"
   value = {for instance in aws_instance.myec2vm: instance.id => instance.public_dns}
 }
 
-# Output - For Loop with Map Advanced
+# Output - For Loop with Map Advanced 
 output "for_output_map2" {
   description = "For Loop with Map - Advanced"
   value = {for c, instance in aws_instance.myec2vm: c => instance.public_dns}
 }
 
 # Output Legacy Splat Operator (latest) - Returns the List
+# (यहाँ हम aws_instance.myec2vm resources के through created every resource (instance) का public_dns output में print hoga ) 
 output "legacy_splat_instance_publicdns" {
   description = "Legacy Splat Expression"
   value = aws_instance.myec2vm.*.public_dns
 }  
 
 # Output Latest Generalized Splat Operator - Returns the List
+# (यहाँ हम aws_instance.myec2vm resources के through created every resource (instance) का public_dns output में print hoga ) 
 output "latest_splat_instance_publicdns" {
   description = "Generalized Splat Expression"
   value = aws_instance.myec2vm[*].public_dns
