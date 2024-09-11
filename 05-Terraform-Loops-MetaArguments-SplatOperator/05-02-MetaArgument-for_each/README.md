@@ -16,10 +16,12 @@
 
 ## Step-03: c5-ec2instance.tf
 - To understand more about [for_each](https://www.terraform.io/docs/language/meta-arguments/for_each.html)
+- if we have 6 availability zone in 1 resgion and सभी region में हम 1-1 instance create करना चाहते है तो हम for loop का use कर सकते है 
 
 ### Step-03-01: Availability Zones Datasource
 ```t
 # Availability Zones Datasource
+#[aws_availability_zones](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones) 
 data "aws_availability_zones" "my_azones" {
   filter {
     name   = "opt-in-status"
