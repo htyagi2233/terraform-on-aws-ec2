@@ -31,6 +31,12 @@ data "aws_availability_zones" "my_azones" {
 ```
 
 ### Step-03-02: EC2 Instance Resource
+- data.aws_availability_zones.my_azones.names ये हमें यहाँ all Availability Zones ली list provide करेगा
+- but for_each Meta-Argument , list को support नही करता इसलिए हम इसे toset() में convert करेंगे
+- toset function cannot contain duplicate values
+- [for_each Meta-Argument](https://www.terraform.io/docs/language/meta-arguments/for_each.html)
+- [tomap Function](https://www.terraform.io/docs/language/functions/tomap.html)
+- [toset Function](https://www.terraform.io/docs/language/functions/toset.html)
 ```t
 # EC2 Instance
 resource "aws_instance" "myec2vm" {
