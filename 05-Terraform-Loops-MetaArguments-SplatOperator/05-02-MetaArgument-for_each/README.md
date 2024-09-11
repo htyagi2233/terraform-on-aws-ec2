@@ -21,7 +21,7 @@
 ### Step-03-01: Availability Zones Datasource
 ```t
 # Availability Zones Datasource
-#[aws_availability_zones](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones) 
+- .[aws_availability_zones](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones)
 data "aws_availability_zones" "my_azones" {
   filter {
     name   = "opt-in-status"
