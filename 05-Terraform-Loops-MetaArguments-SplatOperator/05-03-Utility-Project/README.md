@@ -27,6 +27,8 @@ provider "aws" {
 aws ec2 describe-instance-type-offerings --location-type availability-zone  --filters Name=instance-type,Values=t3.micro --region us-east-1 --output table
 ```
 ### Step-03-01: Review / Create the datasource and its output
+- [Data Source: aws_ec2_instance_type_offerings](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_instance_type_offerings)
+- Above data source के through ये पता चलता है की हमारा instance type define region को support करता है या नही 
 ```t
 # Datasource
 data "aws_ec2_instance_type_offerings" "my_ins_type1" {
