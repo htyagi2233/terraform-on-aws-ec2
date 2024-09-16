@@ -81,6 +81,9 @@ output_v1_1 = toset([])
 ```
 
 ## Step-04: c2-v2-get-instancetype-supported-per-az-in-a-region.tf
+- सभी availability zones में दिए हुआ instance-type support कर रहा है या नही ये dynamic चेक करने के लिए हम for_each loop use करेंगे or उसमे हम list of availability zones provide करेंगे
+- or for_each list के लिए हम toset का use करेंगे
+- इससे एक बार us-east-1a में और फिर us-east-1e availability zones में चेक करेगा की instance-type support कर रहा है या नही 
 - Using `for_each` create multiple instances of datasource and loop it with hard-coded availability zones in `for_each`
 ### Step-04-01: Review / Create the datasource and its output with for_each
 ```t
@@ -101,6 +104,8 @@ data "aws_ec2_instance_type_offerings" "my_ins_type2" {
 
 
 # Important Note: Once for_each is set, its attributes must be accessed on specific instances
+# यहाँ पर direct value work नही करेगी इसलिए हम यहाँ for loop देंगे
+#सबसे पहले instance_type की list provide करेंगे चाहे वह support है या नही 
 output "output_v2_1" {
  #value = data.aws_ec2_instance_type_offerings.my_ins_type1.instance_types
  value = toset([
@@ -109,6 +114,7 @@ output "output_v2_1" {
 }
 
 # Create a Map with Key as Availability Zone and value as Instance Type supported
+# यहाँ हम एक और output create करेंगे map के साथ 
 output "output_v2_2" {
  value = { for az, details in data.aws_ec2_instance_type_offerings.my_ins_type2 :
   az => details.instance_types }   
