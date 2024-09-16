@@ -165,11 +165,11 @@ data "aws_availability_zones" "my_azones" {
 ```
 
 ### Step-05-02: Update for_each with new datasource
-
+```t
 # Check if that respective Instance Type is supported in that Specific Region in list of availability Zones
 # Get the List of Availability Zones in a Particular region where that respective Instance Type is supported
 - or toset में हम aws_availability_zones का नाम provide कराएँगे 
-```t
+
 data "aws_ec2_instance_type_offerings" "my_ins_type" {
 for_each=toset(data.aws_availability_zones.my_azones.names)
   filter {
@@ -186,24 +186,34 @@ for_each=toset(data.aws_availability_zones.my_azones.names)
 
 ### Step-05-03: Implement Incremental Outputs till we reach what is required
 ```t
+# हमें अभी तक सभी supported और unsupported Availability Zones output में मिल रहे थे
+# अभी हम only supported Availability Zones ही चाहते है 
 # Basic Output: All Availability Zones mapped to Supported Instance Types
+
 output "output_v3_1" {
  value = { for az, details in data.aws_ec2_instance_type_offerings.my_ins_type :
   az => details.instance_types }   
 }
 
+
 # Filtered Output: Exclude Unsupported Availability Zones
+# अगर हमारा output details.instance_types 0 के बराबर नही होना चाहिए  
 output "output_v3_2" {
   value = { for az, details in data.aws_ec2_instance_type_offerings.my_ins_type :
   az => details.instance_types if length(details.instance_types) != 0 }
 }
 
+
 # Filtered Output: with Keys Function - Which gets keys from a Map
 # This will return the list of availability zones supported for a instance type
+# और यहाँ पर हम only availability zones जो supported है ऊनि को print कराएँगे इसके लिए हम terraform keys function को use करेंगे
+- [keys Function: keys Function](https://developer.hashicorp.com/terraform/language/functions/keys)
+
 output "output_v3_3" {
   value = keys({ for az, details in data.aws_ec2_instance_type_offerings.my_ins_type :
   az => details.instance_types if length(details.instance_types) != 0 }) 
 }
+
 
 # Filtered Output: As the output is list now, get the first item from list (just for learning)
 output "output_v3_4" {
