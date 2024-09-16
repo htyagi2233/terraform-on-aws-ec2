@@ -226,7 +226,7 @@ output "output_v3_4" {
 ```t
 # Terraform Plan
 terraform plan
-terraform appy -auto-approve
+terraform apply -auto-approve
 Observation: refer sample output
 1. In the final output you will only get the availability zones list in which `t3.micro` instance is supported
 # Sample Output
