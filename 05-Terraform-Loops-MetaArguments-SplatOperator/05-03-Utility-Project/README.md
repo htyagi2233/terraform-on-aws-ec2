@@ -105,7 +105,9 @@ data "aws_ec2_instance_type_offerings" "my_ins_type2" {
 
 # Important Note: Once for_each is set, its attributes must be accessed on specific instances
 # यहाँ पर direct value work नही करेगी इसलिए हम यहाँ for loop देंगे
-#सबसे पहले instance_type की list provide करेंगे चाहे वह support है या नही 
+#सबसे पहले instance_type की list provide करेंगे चाहे वह support है या नही
+# output_v2_1 में instance_type तो print होगा but ये नही पता चलेगा की किस Availability Zone में support कर रहा है 
+
 output "output_v2_1" {
  #value = data.aws_ec2_instance_type_offerings.my_ins_type1.instance_types
  value = toset([
@@ -113,8 +115,11 @@ output "output_v2_1" {
     ])  
 }
 
+
 # Create a Map with Key as Availability Zone and value as Instance Type supported
-# यहाँ हम एक और output create करेंगे map के साथ 
+# यहाँ हम एक और output create करेंगे map के साथ
+#इसके through Availability Zones के साथ instance_types भी print होगा किस zone में support करता है और किस्मे नही 
+ 
 output "output_v2_2" {
  value = { for az, details in data.aws_ec2_instance_type_offerings.my_ins_type2 :
   az => details.instance_types }   
